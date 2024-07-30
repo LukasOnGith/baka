@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #f5f5f5;
+            --text-color: #333;
+            --header-bg-color: #4a90e2;
+            --header-text-color: #fff;
+            --container-bg-color: #fff;
+            --section-bg-color: #f1f1f1;
+            --link-color: yellow;
+            --selection-color: #4a90e2;
+            --button-bg-color: #4a90e2;
+            --button-text-color: #fff;
+            --button-hover-bg-color: #357ABD;
+            --toggle-bg-color: #ccc;
+            --toggle-active-bg-color: #4CAF50;
+            --toggle-knob-bg-color: #fff;
+
+            --about-title-color: #4a90e2;
+            --hobbies-title-color: #FF5733;
+            --moderation-title-color: #8E44AD;
+            --skills-title-color: #2ECC71;
+            --development-title-color: #3498DB;
+            --contact-title-color: #E74C3C;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #2e2e2e;
+            --text-color: #f5f5f5;
+            --header-bg-color: #1a1a1a;
+            --header-text-color: #4a90e2;
+            --container-bg-color: #3a3a3a;
+            --section-bg-color: #4e4e4e;
+            --link-color: yellow;
+            --selection-color: #1a73e8;
+            --button-bg-color: #1a1a1a;
+            --button-text-color: #4a90e2;
+            --button-hover-bg-color: #333;
+            --toggle-bg-color: #555;
+            --toggle-active-bg-color: #4a90e2;
+            --toggle-knob-bg-color: #fff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: background 0.3s, color 0.3s;
+        }
+        header {
+            background: var(--header-bg-color);
+            color: var(--header-text-color);
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: fadeInDown 1s ease-in-out;
+            position: relative;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+        }
+        .container {
+            width: 80%;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--container-bg-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease-in-out;
+            transition: background 0.3s, color 0.3s;
+        }
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            animation: fadeInLeft 1s ease-in-out;
+        }
+        .about h2 {
+            color: var(--about-title-color);
+        }
+        .hobbies h2 {
+            color: var(--hobbies-title-color);
+        }
+        .moderation h2 {
+            color: var(--moderation-title-color);
+        }
+        .skills h2 {
+            color: var(--skills-title-color);
+        }
+        .development h2 {
+            color: var(--development-title-color);
+        }
+        .contact h2 {
+            color: var(--contact-title-color);
+        }
+        .about, .contact {
+            padding: 2rem;
+            background: var(--section-bg-color);
+            border-radius: 8px;
+            transition: background 0.3s, color 0.3s;
+        }
+        .about p, .contact p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            animation: fadeInRight 1s ease-in-out;
+        }
+        .hobbies ul, .moderation ul, .development ul, .skills ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .hobbies li, .moderation li, .development li, .skills li {
+            background: var(--section-bg-color);
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+            animation: fadeInUp 1.5s ease-in-out;
+        }
+        .hobbies li:hover, .moderation li:hover, .development li:hover, .skills li:hover {
+            background: var(--selection-color);
+            color: var(--header-text-color);
+        }
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .language-selector, .theme-toggle {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .language-selector select {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background: var(--button-bg-color);
+            color: var(--button-text-color);
+            transition: background 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .language-selector select:hover {
+            background: var(--button-hover-bg-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .language-selector select:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+        }
+
+        /* Toggle switch styles */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--toggle-bg-color);
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: var(--toggle-knob-bg-color);
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        input:checked + .slider {
+            background-color: var(--toggle-active-bg-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+    <script>
+        function changeLanguage() {
+            const lang = document.getElementById("language").value;
+            const elements = document.querySelectorAll("[data-lang]");
+
+            elements.forEach(el => {
+                el.style.display = el.getAttribute("data-lang") === lang ? "block" : "none";
+            });
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute("data-theme");
+            const newTheme = currentTheme === "dark" ? "light" : "dark";
+            document.documentElement.setAttribute("data-theme", newTheme);
+            localStorage.setItem("theme", newTheme);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const savedTheme = localStorage.getItem("theme") || "light";
+            document.documentElement.setAttribute("data-theme", savedTheme);
+            
+            changeLanguage();
+
+            const themeSwitcher = document.getElementById('themeSwitcher');
+            if (savedTheme === "dark") {
+                themeSwitcher.checked = true;
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1 data-lang="en">My Portfolio</h1>
+        <h1 data-lang="de" style="display: none;">Mein Portfolio</h1>
+        <h1 data-lang="es" style="display: none;">Mi Portafolio</h1>
+        <h1 data-lang="fr" style="display: none;">Mon Portfolio</h1>
+        <h1 data-lang="ru" style="display: none;">Мое портфолио</h1>
+        <div class="theme-toggle">
+            <label class="toggle-switch">
+                <input type="checkbox" onclick="toggleTheme()" id="themeSwitcher">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </header>
+    <div class="container">
+        <div class="language-selector">
+            <label for="language">Choose a language: </label>
+            <select id="language" onchange="changeLanguage()">
+                <option value="en">English</option>
+                <option value="de">German</option>
+                <option value="es">Spanish</option>
+                <option value="fr">French</option>
+                <option value="ru">Russian</option>
+            </select>
+        </div>
+        <section class="about">
+            <h2 data-lang="en">About Me</h2>
+            <h2 data-lang="de" style="display: none;">Über mich</h2>
+            <h2 data-lang="es" style="display: none;">Sobre mí</h2>
+            <h2 data-lang="fr" style="display: none;">À propos de moi</h2>
+            <h2 data-lang="ru" style="display: none;">Обо мне</h2>
+
+            <p data-lang="en">Hey, I am Lukas. I am a skilled Developer who also has a passion for moderating Discord servers and Roblox games. I have 8+ years of experience in game development, and I am able to work with various game engines, such as Unreal Engine, Unity, Roblox Studio, etc. I just have a passion for developing stuff and for moderating. With extensive experience in both development and community management, I thrive in creating engaging and well-maintained online environments.</p>
+            <p data-lang="de" style="display: none;">Hallo, ich bin Lukas. Ich bin ein erfahrener Entwickler, der auch eine Leidenschaft für die Moderation von Discord-Servern und Roblox-Spielen hat. Ich habe mehr als 8 Jahre Erfahrung in der Spieleentwicklung und kann mit verschiedenen Spiel-Engines wie Unreal Engine, Unity, Roblox Studio usw. arbeiten. Ich habe einfach eine Leidenschaft dafür, Dinge zu entwickeln und zu moderieren. Mit umfassender Erfahrung in sowohl Entwicklung als auch Community-Management gedeihe ich darin, ansprechende und gut gepflegte Online-Umgebungen zu schaffen.</p>
+            <p data-lang="es" style="display: none;">Hola, soy Lukas. Soy un desarrollador habilidoso que también tiene una pasión por moderar servidores de Discord y juegos de Roblox. Tengo más de 8 años de experiencia en desarrollo de juegos y soy capaz de trabajar con varios motores de juego, como Unreal Engine, Unity, Roblox Studio, etc. Simplemente tengo una pasión por desarrollar cosas y moderar. Con una amplia experiencia en el desarrollo y la gestión de comunidades, prospero en la creación de entornos en línea atractivos y bien mantenidos.</p>
+            <p data-lang="fr" style="display: none;">Salut, je suis Lukas. Je suis un développeur qualifié qui a également une passion pour la modération des serveurs Discord et des jeux Roblox. J'ai plus de 8 ans d'expérience dans le développement de jeux et je suis capable de travailler avec divers moteurs de jeux, tels que Unreal Engine, Unity, Roblox Studio, etc. J'ai tout simplement une passion pour le développement et la modération. Avec une vaste expérience en développement et en gestion de communauté, je prospère dans la création d'environnements en ligne attrayants et bien entretenus.</p>
+            <p data-lang="ru" style="display: none;">Привет, я Лукас. Я опытный разработчик, который также увлекается модерацией серверов Discord и игр Roblox. У меня более 8 лет опыта в разработке игр, и я умею работать с различными игровыми движками, такими как Unreal Engine, Unity, Roblox Studio и т. д. Я просто увлечен разработкой и модерацией. Благодаря обширному опыту как в разработке, так и в управлении сообществами, я стремлюсь создавать увлекательные и хорошо поддерживаемые онлайн-среды.</p>
+        </section>
+        <section class="hobbies">
+            <h2 data-lang="en">Hobbies</h2>
+            <h2 data-lang="de" style="display: none;">Hobbys</h2>
+            <h2 data-lang="es" style="display: none;">Aficiones</h2>
+            <h2 data-lang="fr" style="display: none;">Loisirs</h2>
+            <h2 data-lang="ru" style="display: none;">Хобби</h2>
+            <ul>
+                <li data-lang="en">Gaming</li>
+                <li data-lang="de" style="display: none;">Spielen</li>
+                <li data-lang="es" style="display: none;">Jugar</li>
+                <li data-lang="fr" style="display: none;">Jouer</li>
+                <li data-lang="ru" style="display: none;">Игры</li>
+                <li data-lang="en">Developing</li>
+                <li data-lang="de" style="display: none;">Entwickeln</li>
+                <li data-lang="es" style="display: none;">Desarrollar</li>
+                <li data-lang="fr" style="display: none;">Développer</li>
+                <li data-lang="ru" style="display: none;">Разработка</li>
+                <li data-lang="en">Spending time with friends</li>
+                <li data-lang="de" style="display: none;">Zeit mit Freunden verbringen</li>
+                <li data-lang="es" style="display: none;">Pasar tiempo con amigos</li>
+                <li data-lang="fr" style="display: none;">Passer du temps avec des amis</li>
+                <li data-lang="ru" style="display: none;">Проводить время с друзьями</li>
+                <li data-lang="en">Going outside</li>
+                <li data-lang="de" style="display: none;">Nach draußen gehen</li>
+                <li data-lang="es" style="display: none;">Salir afuera</li>
+                <li data-lang="fr" style="display: none;">Sortir</li>
+                <li data-lang="ru" style="display: none;">Выходить на улицу</li>
+            </ul>
+        </section>
+        <section class="moderation">
+            <h2 data-lang="en">Moderation Experience</h2>
+            <h2 data-lang="de" style="display: none;">Moderationserfahrung</h2>
+            <h2 data-lang="es" style="display: none;">Experiencia en moderación</h2>
+            <h2 data-lang="fr" style="display: none;">Expérience de modération</h2>
+            <h2 data-lang="ru" style="display: none;">Опыт модерации</h2>
+            <ul>
+                <li data-lang="en">Moderator @ <a href="https://discord.gg/riseofnations" target="_blank" style="color: yellow;">Rise of Nations Discord</a></li>
+                <li data-lang="de" style="display: none;">Moderator @ <a href="https://discord.gg/riseofnations" target="_blank" style="color: yellow;">Rise of Nations Discord</a></li>
+                <li data-lang="es" style="display: none;">Moderador @ <a href="https://discord.gg/riseofnations" target="_blank" style="color: yellow;">Rise of Nations Discord</a></li>
+                <li data-lang="fr" style="display: none;">Modérateur @ <a href="https://discord.gg/riseofnations" target="_blank" style="color: yellow;">Rise of Nations Discord</a></li>
+                <li data-lang="ru" style="display: none;">Модератор @ <a href="https://discord.gg/riseofnations" target="_blank" style="color: yellow;">Rise of Nations Discord</a></li>
+
+                <li data-lang="en">Moderator @ <a href="https://discord.gg/kfEymGVkk4" target="_blank" style="color: yellow;">Dreadworks Studios Discord</a></li>
+                <li data-lang="de" style="display: none;">Moderator @ <a href="https://discord.gg/kfEymGVkk4" target="_blank" style="color: yellow;">Dreadworks Studios Discord</a></li>
+                <li data-lang="es" style="display: none;">Moderador @ <a href="https://discord.gg/kfEymGVkk4" target="_blank" style="color: yellow;">Dreadworks Studios Discord</a></li>
+                <li data-lang="fr" style="display: none;">Modérateur @ <a href="https://discord.gg/kfEymGVkk4" target="_blank" style="color: yellow;">Dreadworks Studios Discord</a></li>
+                <li data-lang="ru" style="display: none;">Модератор @ <a href="https://discord.gg/kfEymGVkk4" target="_blank" style="color: yellow;">Dreadworks Studios Discord</a></li>
+
+                <li data-lang="en">Moderator @ <a href="https://discord.gg/dzF9bQX7eT" target="_blank" style="color: yellow;">Evolutional Labs Discord</a></li>
+                <li data-lang="de" style="display: none;">Moderator @ <a href="https://discord.gg/dzF9bQX7eT" target="_blank" style="color: yellow;">Evolutional Labs Discord</a></li>
+                <li data-lang="es" style="display: none;">Moderador @ <a href="https://discord.gg/dzF9bQX7eT" target="_blank" style="color: yellow;">Evolutional Labs Discord</a></li>
+                <li data-lang="fr" style="display: none;">Modérateur @ <a href="https://discord.gg/dzF9bQX7eT" target="_blank" style="color: yellow;">Evolutional Labs Discord</a></li>
+                <li data-lang="ru" style="display: none;">Модератор @ <a href="https://discord.gg/dzF9bQX7eT" target="_blank" style="color: yellow;">Evolutional Labs Discord</a></li>
+            </ul>
+        </section>
+        <section class="skills">
+            <h2 data-lang="en">Skills</h2>
+            <h2 data-lang="de" style="display: none;">Fähigkeiten</h2>
+            <h2 data-lang="es" style="display: none;">Habilidades</h2>
+            <h2 data-lang="fr" style="display: none;">Compétences</h2>
+            <h2 data-lang="ru" style="display: none;">Навыки</h2>
+            <ul>
+                <li data-lang="en">Well at communicating</li>
+                <li data-lang="de" style="display: none;">Gut in der Kommunikation</li>
+                <li data-lang="es" style="display: none;">Bueno en la comunicación</li>
+                <li data-lang="fr" style="display: none;">Bon en communication</li>
+                <li data-lang="ru" style="display: none;">Хорошо в общении</li>
+
+                <li data-lang="en">Good at problem solving</li>
+                <li data-lang="de" style="display: none;">Gut im Lösen von Problemen</li>
+                <li data-lang="es" style="display: none;">Bueno resolviendo problemas</li>
+                <li data-lang="fr" style="display: none;">Bon en résolution de problèmes</li>
+                <li data-lang="ru" style="display: none;">Хорошо решает проблемы</li>
+
+                <li data-lang="en">Trustworthy</li>
+                <li data-lang="de" style="display: none;">Vertrauenswürdig</li>
+                <li data-lang="es" style="display: none;">Confiable</li>
+                <li data-lang="fr" style="display: none;">Digne de confiance</li>
+                <li data-lang="ru" style="display: none;">Достойный доверия</li>
+
+                <li data-lang="en">Leadership</li>
+                <li data-lang="de" style="display: none;">Führungsqualität</li>
+                <li data-lang="es" style="display: none;">Liderazgo</li>
+                <li data-lang="fr" style="display: none;">Leadership</li>
+                <li data-lang="ru" style="display: none;">Лидерство</li>
+
+                <li data-lang="en">Adaptability</li>
+                <li data-lang="de" style="display: none;">Anpassungsfähigkeit</li>
+                <li data-lang="es" style="display: none;">Adaptabilidad</li>
+                <li data-lang="fr" style="display: none;">Adaptabilité</li>
+                <li data-lang="ru" style="display: none;">Адаптивность</li>
+            </ul>
+        </section>
+        <section class="development">
+            <h2 data-lang="en">Development Skills</h2>
+            <h2 data-lang="de" style="display: none;">Entwicklungsfähigkeiten</h2>
+            <h2 data-lang="es" style="display: none;">Habilidades de desarrollo</h2>
+            <h2 data-lang="fr" style="display: none;">Compétences en développement</h2>
+            <h2 data-lang="ru" style="display: none;">Навыки разработки</h2>
+            <p data-lang="en">I am proficient in the following programming languages:</p>
+            <p data-lang="de" style="display: none;">Ich bin in den folgenden Programmiersprachen versiert:</p>
+            <p data-lang="es" style="display: none;">Soy competente en los siguientes lenguajes de programación:</p>
+            <p data-lang="fr" style="display: none;">Je maîtrise les langages de programmation suivants :</p>
+            <p data-lang="ru" style="display: none;">Я владею следующими языками программирования:</p>
+            <ul>
+                <li data-lang="en">Python</li>
+                <li data-lang="de" style="display: none;">Python</li>
+                <li data-lang="es" style="display: none;">Python</li>
+                <li data-lang="fr" style="display: none;">Python</li>
+                <li data-lang="ru" style="display: none;">Python</li>
+
+                <li data-lang="en">Lua</li>
+                <li data-lang="de" style="display: none;">Lua</li>
+                <li data-lang="es" style="display: none;">Lua</li>
+                <li data-lang="fr" style="display: none;">Lua</li>
+                <li data-lang="ru" style="display: none;">Lua</li>
+
+                <li data-lang="en">Java</li>
+                <li data-lang="de" style="display: none;">Java</li>
+                <li data-lang="es" style="display: none;">Java</li>
+                <li data-lang="fr" style="display: none;">Java</li>
+                <li data-lang="ru" style="display: none;">Java</li>
+
+                <li data-lang="en">JavaScript</li>
+                <li data-lang="de" style="display: none;">JavaScript</li>
+                <li data-lang="es" style="display: none;">JavaScript</li>
+                <li data-lang="fr" style="display: none;">JavaScript</li>
+                <li data-lang="ru" style="display: none;">JavaScript</li>
+
+                <li data-lang="en">Ruby</li>
+                <li data-lang="de" style="display: none;">Ruby</li>
+                <li data-lang="es" style="display: none;">Ruby</li>
+                <li data-lang="fr" style="display: none;">Ruby</li>
+                <li data-lang="ru" style="display: none;">Ruby</li>
+
+                <li data-lang="en">C</li>
+                <li data-lang="de" style="display: none;">C</li>
+                <li data-lang="es" style="display: none;">C</li>
+                <li data-lang="fr" style="display: none;">C</li>
+                <li data-lang="ru" style="display: none;">C</li>
+
+                <li data-lang="en">C#</li>
+                <li data-lang="de" style="display: none;">C#</li>
+                <li data-lang="es" style="display: none;">C#</li>
+                <li data-lang="fr" style="display: none;">C#</li>
+                <li data-lang="ru" style="display: none;">C#</li>
+            </ul>
+        </section>
+        <section class="contact">
+            <h2 data-lang="en">Contact Me</h2>
+            <h2 data-lang="de" style="display: none;">Kontaktiere mich</h2>
+            <h2 data-lang="es" style="display: none;">Contáctame</h2>
+            <h2 data-lang="fr" style="display: none;">Contactez-moi</h2>
+            <h2 data-lang="ru" style="display: none;">Свяжитесь со мной</h2>
+            <p>Email: <a href="mailto:Itxnotmaster@gmail.com">Itxnotmaster@gmail.com</a></p>
+            <p>Discord: <a href="https://discordapp.com/users/1119218378259845183" target="_blank" style="color: yellow;">Discord Profile</a></p>
+        </section>
+    </div>
+</body>
+</html>
